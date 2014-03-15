@@ -1,0 +1,12 @@
+{
+	"id": "nodebb-plugin-admin-email",
+	"name": "Admin Email",
+	"description": "NodeBB Admin Email",
+	"url": "https://github.com/tedr56/nodebb-plugin-admin-email",
+	"library": "./library.js",
+	"hooks": [
+		{ "hook": "filter:admin.header.build", "method": "registerPlugin", "callbacked": false },
+		{ "hook": "filter:admin.create_routes", "method": "addRoute", "callbacked": true }
+	],
+	"staticDir": "./public"
+}
