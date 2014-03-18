@@ -3,8 +3,9 @@
 var	fs = require('fs'),
 	path = require('path'),
 //	winston = require('winston'),
+	Meta = module.parent.require('./meta'),
 	templates = module.parent.require('../public/src/templates.js');
-
+	
 var constants = Object.freeze({
 	'name': "Admin Email",
 	'admin': {
@@ -13,63 +14,30 @@ var constants = Object.freeze({
 	}
 });
 
-var AdminEmail = {
-		registerPlugin: function(custom_header, callback) {
-			custom_header.plugins.push({
-				"route": constants.admin.route,
-				"icon": constants.admin.icon,
-				"name": constants.name
-			});
 
-			return custom_header;
-		},
-		addRoute: function(custom_routes, callback) {
-			fs.readFile(path.resolve(__dirname, './public/templates/admin/plugins/admin-email.tpl'), function (err, template) {
-				custom_routes.routes.push({
-					"route": constants.admin.route,
-					"method": "get",
-					"options": function(req, res, callback) {
-						callback({
-							req: req,
-							res: res,
-							route: constants.admin.route,
-							name: constants.name,
-							content: template
-						});
-					}
-				});
-
-				callback(null, custom_routes);
-			});
-		}
-	};
-module.exports = AdminEmail;
-
-/*
-(function(admin-email) {
-    var email = '';
     
-	var admin = {};
+var AdminEmail = {
+    onLoad: function(app, middleware, controllers) {
+	    function render(req, res, next) {
+		    res.render('admin/plugins/admin-email', {});
+	    }
+	    app.get('/admin/plugins/admin-email', middleware.admin.buildHeader, render);
+	    app.get('/api/admin/plugins/admin-email', render);
+	    app.post('/api/admin/plugins/admin-email/send', AdminEmail.send);
+    },
+    send: function(req, res, next) {
+	res.json(200, {message: 'Email send'});
+    },
+    admin: {
+	menu: function(custom_header, callback) {
+	    custom_header.plugins.push({
+		    "route": '/plugins/admin-email',
+		    "icon": 'fa-envelope-o',
+		    "name": 'Admin Email'
+	    });
 
-	admin.menu = function(custom_header) {
-		custom_header.plugins.push({
-			route: '/plugins/admin-email',
-			icon: 'fa-envelope-o',
-			name: 'Admin Email'
-		});
-
-		return custom_header;
-	};
-	admin-email.admin = admin;
-	
-	admin-email.init = function(app, middleware, controllers) {
-		app.get('/admin/plugins/imgur', middleware.admin.buildHeader, renderAdmin);
-		app.get('/api/admin/plugins/imgur', renderAdmin);
-
-	};
-	function renderAdmin(req, res, next) {
-		res.render('admin/plugins/admin-email');
+	    return custom_header;
 	}
-	
-}(module.exports));
-*/
+    }
+}
+module.exports = AdminEmail;
