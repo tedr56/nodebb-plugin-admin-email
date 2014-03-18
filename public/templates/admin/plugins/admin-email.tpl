@@ -15,7 +15,7 @@
 
 	$('#send').on('click', function() {
 
-		$.post('/api/admin/plugins/admin-email123/send', {_csrf : $('#csrf_token').val(), adminEmailText : $('#adminEmailText').val()}, function(data) {
+		$.post('/api/admin/plugins/admin-email/send', {_csrf : $('#csrf_token').val(), adminEmailText : $('#adminEmailText').val()}, function(data) {
 			app.alertSuccess(data.message);
 		});
 
@@ -24,12 +24,10 @@
 
 </script>
 <!-- ELSE -->
-<form class="form">
-    <div class="row">
-	<div class="col-sm-4 col-xs-12">
-	    <i class="fa fa-times alert-danger"></i>
-	    <label>No Emailer Installed!</label>
-	</div>
+<div class="row">
+    <div class="col-sm-4 col-xs-12">
+	<i class="fa fa-times alert-danger"></i>
+	<label>No Emailer Installed!</label>
     </div>
-</form>
+</div>
 <!-- ENDIF emailerInstalled -->

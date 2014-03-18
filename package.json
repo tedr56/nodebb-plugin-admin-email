@@ -28,5 +28,5 @@
   "readme": "# NodeBB Sample Admin Email\nThis NodeBB plugin allows to send Email to the users.\n## Installation\n    npm install nodebb-plugin-admin-email\n## Screenshots\n ![NodeBB Sample Admin Page](http://i.imgur.com/0IP3bSl.png)",
   "readmeFilename": "README.md",
   "homepage": "https://github.com/tedr56/nodebb-plugin-admin-email",
-  },
+  }
 }

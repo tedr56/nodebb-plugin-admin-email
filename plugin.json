@@ -9,5 +9,8 @@
 		{ "hook": "action:app.load", "method": "onLoad", "callbacked": true },
 		{ "hook": "filter:admin.header.build", "method": "admin.menu", "callbacked": false }
 	],
-	"staticDir": "./public"
+	"staticDirs": {
+		"public": "./public"
+	},
+	"minver": "0.4.0"
 }
